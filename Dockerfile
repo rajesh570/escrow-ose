@@ -1,4 +1,4 @@
-FROM java:7
+FROM openshift-poc-docker.stg-prsn.com:5000/logstash:1.4.1
 
 EXPOSE 3004
 
