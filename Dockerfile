@@ -3,6 +3,16 @@ FROM java:7
 # Install Logstash 1.4.1.
 RUN curl -SL https://download.elasticsearch.org/logstash/logstash/logstash-1.4.1.tar.gz | tar xfz - -C /opt/
 RUN mkdir -p /etc/logstash/
+RUN mkdir -p /var/log/escrow
+RUN touch /var/log/escrow/escrow-logback.log
+RUN mkdir -p /etc/logstash/patterns
+
+COPY logstash.conf /etc/logstash/logstash.conf
+COPY logstash-template.json /etc/logstash/logstash-template.json
+COPY logstash.pattern /etc/logstash/patterns/logstash.pattern
+
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod 555 /usr/local/bin/start.sh
 
 EXPOSE 3004
 
@@ -16,7 +26,4 @@ RUN mv version.properties config/dev
 
 RUN curl -O http://jenkins-registrar.dev-prsn.com:8080/view/PaaS%20POC/job/openshift-deploy-singleService/lastSuccessfulBuild/artifact/service/config/logback.xml
 
-ENV SERVERS "java -classpath escrow-jar-with-dependencies.jar com.pearson.grid.escrow.Main"
-CMD sh -c "eval $SERVERS"
-
-
+ENTRYPOINT ["/usr/local/bin/start.sh"]
