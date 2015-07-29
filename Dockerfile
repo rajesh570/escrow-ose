@@ -1,4 +1,8 @@
-FROM openshift-poc-docker.stg-prsn.com:5000/logstash:1.4.1
+FROM java:7
+
+# Install Logstash 1.4.1.
+RUN curl -SL https://download.elasticsearch.org/logstash/logstash/logstash-1.4.1.tar.gz | tar xfz - -C /opt/
+RUN mkdir -p /etc/logstash/
 
 EXPOSE 3004
 
