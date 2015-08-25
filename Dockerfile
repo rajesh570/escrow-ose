@@ -14,7 +14,7 @@ COPY logstash.pattern /etc/logstash/patterns/logstash.pattern
 COPY start.sh /usr/local/bin/start.sh
 RUN chmod 555 /usr/local/bin/start.sh
 
-EXPOSE 3004
+EXPOSE 80
 
 RUN curl -O http://jenkins-registrar.dev-prsn.com:8080/view/PaaS%20POC/job/openshift-deploy-escrow/lastSuccessfulBuild/artifact/service/target/escrow-jar-with-dependencies.jar
 
